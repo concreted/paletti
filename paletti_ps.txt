@@ -1,0 +1,248 @@
+title paletti
+author concrete atelier
+homepage www.puzzlescript.net
+
+========
+OBJECTS
+========
+
+Background
+black
+
+Wall
+darkgrey
+
+PlayerNone
+white
+00000
+00000
+.000.
+00000
+00000
+
+PlayerRed
+red
+00000
+00000
+.000.
+00000
+00000
+
+PlayerBlue
+blue
+00000
+00000
+.000.
+00000
+00000
+
+PlayerYellow
+Yellow
+00000
+00000
+.000.
+00000
+00000
+
+PlayerPurple
+purple
+00000
+00000
+.000.
+00000
+00000
+
+PlayerGreen
+green
+00000
+00000
+.000.
+00000
+00000
+
+PlayerOrange
+orange
+00000
+00000
+.000.
+00000
+00000
+
+PlayerBlack
+darkgrey
+00000
+00000
+.000.
+00000
+00000
+
+EnemyRed
+red
+
+WeakEnemyRed
+red
+..0..
+.000.
+00000
+.000.
+..0..
+
+EnemyBlue
+blue
+
+WeakEnemyBlue
+blue
+..0..
+.000.
+00000
+.000.
+..0..
+
+EnemyYellow
+Yellow
+
+WeakEnemyYellow
+Yellow
+..0..
+.000.
+00000
+.000.
+..0..
+
+Move
+lightgrey
+
+DrawRed
+red
+
+DrawBlue
+blue
+
+DrawYellow
+Yellow
+
+DrawNone
+lightgrey
+
+
+=======
+LEGEND
+=======
+
+. = Background
+# = Wall
+@ = PlayerNone
+R = EnemyRed
+B = EnemyBlue
+Y = EnemyYellow
+
+Player = PlayerNone or PlayerRed or PlayerBlue or PlayerYellow or PlayerGreen or PlayerOrange or PlayerPurple or PlayerBlack
+
+Enemy = EnemyRed or EnemyBlue or EnemyYellow or WeakEnemyRed or WeakEnemyBlue or WeakEnemyYellow 
+
+DrawColor = DrawRed or DrawBlue or DrawYellow or DrawNone
+Draw = DrawColor or DrawNone
+Upkeep = Move or Draw
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+DrawNone
+Move, DrawColor
+Player, Wall, Enemy
+
+======
+RULES
+======
+
+[ > Player | ] -> [ > Player | Move ]
+
+Right [ Action Player | ] -> [ Player | DrawNone ]
+Left  [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
+Up    [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
+Down  [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
+
+
+( vs Red)
+Right [ Action PlayerRed | ] -> [ PlayerRed | DrawRed ]
+Left  [ DrawRed ] [ PlayerRed | ] -> [ DrawRed ] [ PlayerRed | DrawRed ]
+Up    [ DrawRed ] [ PlayerRed | ] -> [ DrawRed ] [ PlayerRed | DrawRed ]
+Down  [ DrawRed ] [ PlayerRed | ] -> [ DrawRed ] [ PlayerRed | DrawRed ]
+
+[ Move EnemyRed ] -> [ WeakEnemyRed ]
+[ Move WeakEnemyRed ] -> [ No WeakEnemyRed ]
+
+
+[ WeakEnemyRed DrawRed ] [ Player ] -> [ No WeakEnemyRed ] [ PlayerRed ]
+[ EnemyRed DrawRed ] -> [ WeakEnemyRed ]
+
+
+( vs Blue )
+Right [ Action PlayerBlue | ] -> [ PlayerBlue | DrawBlue ]
+Left  [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
+Up    [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
+Down  [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
+
+[ Move EnemyBlue ] -> [ WeakEnemyBlue ]
+[ Move WeakEnemyBlue ] -> [ No WeakEnemyBlue ]
+
+
+[ WeakEnemyBlue DrawBlue ] [ Player ] -> [ No WeakEnemyBlue ] [ PlayerBlue ]
+[ EnemyBlue DrawBlue ] -> [ WeakEnemyBlue ]
+
+
+( vs Yellow )
+Right [ Action PlayerYellow | ] -> [ PlayerYellow | DrawYellow ]
+Left  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawYellow ]
+Up    [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawYellow ]
+Down  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawYellow ]
+
+[ Move EnemyYellow ] -> [ WeakEnemyYellow ]
+[ Move WeakEnemyYellow ] -> [ No WeakEnemyYellow ]
+
+
+[ WeakEnemyYellow DrawYellow ] [ Player ] -> [ No WeakEnemyYellow ] [ PlayerYellow ]
+[ EnemyYellow DrawYellow ] -> [ WeakEnemyYellow ]
+
+
+( color combinations )
+( 3 colors )
+[ WeakEnemyRed DrawNone ] [ WeakEnemyBlue DrawNone ] [ WeakEnemyYellow DrawNone ] [ Player ]-> [ ] [ ] [ ] [ PlayerBlack ]
+
+( 2 colors )
+[ WeakEnemyRed DrawNone ]  [ WeakEnemyBlue DrawNone ]   [ Player ]-> [ ] [ ] [ PlayerPurple ]
+[ WeakEnemyRed DrawNone ]  [ WeakEnemyYellow DrawNone ] [ Player ]-> [ ] [ ] [ PlayerOrange ]
+[ WeakEnemyBlue DrawNone ] [ WeakEnemyYellow DrawNone ] [ Player ]-> [ ] [ ] [ PlayerGreen ]
+
+( 1 color )
+[ WeakEnemyRed DrawNone ]    [ Player ] -> [  ] [ PlayerRed ]
+[ WeakEnemyBlue DrawNone ]   [ Player ] -> [  ] [ PlayerBlue ]
+[ WeakEnemyYellow DrawNone ] [ Player ] -> [  ] [ PlayerYellow ]
+
+
+late [ Upkeep ] -> [ No Upkeep ]
+
+
+==============
+WINCONDITIONS
+==============
+
+No Enemy
+
+=======
+LEVELS
+=======
+
+
+######
+#.R..#
+#R.R.#
+#Y@.B#
+#Y.Y.#
+######
