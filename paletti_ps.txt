@@ -109,6 +109,18 @@ Yellow
 .000.
 ..0..
 
+EnemyGreen
+green
+
+EnemyOrange
+orange
+
+EnemyPurple
+purple
+
+EnemyBlack
+darkgrey
+
 Move
 lightgrey
 
@@ -120,6 +132,18 @@ blue
 
 DrawYellow
 Yellow
+
+DrawGreen
+green
+
+DrawOrange
+orange
+
+DrawPurple
+purple
+
+DrawBlack
+darkgrey
 
 DrawNone
 lightgrey
@@ -135,12 +159,16 @@ LEGEND
 R = EnemyRed
 B = EnemyBlue
 Y = EnemyYellow
+O = EnemyOrange
+G = EnemyGreen
+P = EnemyPurple
+A = EnemyBlack
 
 Player = PlayerNone or PlayerRed or PlayerBlue or PlayerYellow or PlayerGreen or PlayerOrange or PlayerPurple or PlayerBlack
 
-Enemy = EnemyRed or EnemyBlue or EnemyYellow or WeakEnemyRed or WeakEnemyBlue or WeakEnemyYellow 
+Enemy = EnemyRed or EnemyBlue or EnemyYellow or WeakEnemyRed or WeakEnemyBlue or WeakEnemyYellow or EnemyGreen or EnemyOrange or EnemyPurple or EnemyBlack
 
-DrawColor = DrawRed or DrawBlue or DrawYellow
+DrawColor = DrawRed or DrawBlue or DrawYellow or DrawGreen or DrawOrange or DrawPurple or DrawBlack
 Draw = DrawColor or DrawNone
 Upkeep = Move or Draw
 
@@ -178,9 +206,6 @@ Down  [ DrawRed ] [ PlayerRed | ] -> [ DrawRed ] [ PlayerRed | DrawRed ]
 [ Move EnemyRed ] -> [ WeakEnemyRed ]
 [ Move WeakEnemyRed ] -> [ No WeakEnemyRed ]
 
-
-
-
 ( vs Blue )
 Right [ Action PlayerBlue | ] -> [ PlayerBlue | DrawBlue ]
 Left  [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
@@ -189,10 +214,6 @@ Down  [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
 
 [ Move EnemyBlue ] -> [ WeakEnemyBlue ]
 [ Move WeakEnemyBlue ] -> [ No WeakEnemyBlue ]
-
-
-
-
 
 ( vs Yellow )
 Right [ Action PlayerYellow | ] -> [ PlayerYellow | DrawYellow ]
@@ -203,7 +224,29 @@ Down  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawY
 [ Move EnemyYellow ] -> [ WeakEnemyYellow ]
 [ Move WeakEnemyYellow ] -> [ No WeakEnemyYellow ]
 
+( vs Orange )
+Right [ Action PlayerOrange | ] -> [ PlayerOrange | DrawOrange ]
+Left  [ DrawOrange ] [ PlayerOrange | ] -> [ DrawOrange ] [ PlayerOrange | DrawOrange ]
+Up    [ DrawOrange ] [ PlayerOrange | ] -> [ DrawOrange ] [ PlayerOrange | DrawOrange ]
+Down  [ DrawOrange ] [ PlayerOrange | ] -> [ DrawOrange ] [ PlayerOrange | DrawOrange ]
 
+( vs Green )
+Right [ Action PlayerGreen | ] -> [ PlayerGreen | DrawGreen ]
+Left  [ DrawGreen ] [ PlayerGreen | ] -> [ DrawGreen ] [ PlayerGreen | DrawGreen ]
+Up    [ DrawGreen ] [ PlayerGreen | ] -> [ DrawGreen ] [ PlayerGreen | DrawGreen ]
+Down  [ DrawGreen ] [ PlayerGreen | ] -> [ DrawGreen ] [ PlayerGreen | DrawGreen ]
+
+( vs Purple )
+Right [ Action PlayerPurple | ] -> [ PlayerPurple | DrawPurple ]
+Left  [ DrawPurple ] [ PlayerPurple | ] -> [ DrawPurple ] [ PlayerPurple | DrawPurple ]
+Up    [ DrawPurple ] [ PlayerPurple | ] -> [ DrawPurple ] [ PlayerPurple | DrawPurple ]
+Down  [ DrawPurple ] [ PlayerPurple | ] -> [ DrawPurple ] [ PlayerPurple | DrawPurple ]
+
+( vs Black )
+Right [ Action PlayerBlack | ] -> [ PlayerBlack | DrawBlack ]
+Left  [ DrawBlack ] [ PlayerBlack | ] -> [ DrawBlack ] [ PlayerBlack | DrawBlack ]
+Up    [ DrawBlack ] [ PlayerBlack | ] -> [ DrawBlack ] [ PlayerBlack | DrawBlack ]
+Down  [ DrawBlack ] [ PlayerBlack | ] -> [ DrawBlack ] [ PlayerBlack | DrawBlack ]
 
 ( color combinations )
 ( 3 colors )
@@ -229,6 +272,10 @@ Down  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawY
 [ WeakEnemyYellow DrawYellow ] [ Player ] -> [ No WeakEnemyYellow ] [ PlayerYellow ]
 [ EnemyYellow DrawYellow ] -> [ WeakEnemyYellow ]
 
+[ EnemyGreen DrawGreen ] -> [ ]
+[ EnemyPurple DrawPurple ] -> [ ]
+[ EnemyOrange DrawOrange ] -> [ ]
+[ EnemyBlack DrawBlack ] -> [ ]
 
 late [ Upkeep ] -> [ No Upkeep ]
 
@@ -244,9 +291,9 @@ LEVELS
 =======
 
 
-######
-#.R..#
-#R.R.#
-#Y@.B#
-#Y.Y.#
-######
+##########
+#.R....O.#
+#R.R...P.#
+#Y@.B..G.#
+#Y.Y...A.#
+##########
