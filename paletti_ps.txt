@@ -140,7 +140,7 @@ Player = PlayerNone or PlayerRed or PlayerBlue or PlayerYellow or PlayerGreen or
 
 Enemy = EnemyRed or EnemyBlue or EnemyYellow or WeakEnemyRed or WeakEnemyBlue or WeakEnemyYellow 
 
-DrawColor = DrawRed or DrawBlue or DrawYellow or DrawNone
+DrawColor = DrawRed or DrawBlue or DrawYellow
 Draw = DrawColor or DrawNone
 Upkeep = Move or Draw
 
@@ -163,10 +163,10 @@ RULES
 
 [ > Player | ] -> [ > Player | Move ]
 
-Right [ Action Player | ] -> [ Player | DrawNone ]
-Left  [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
-Up    [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
-Down  [ DrawNone ] [ Player | ] -> [ DrawNone ] [ Player | DrawNone ]
+Right [ Action Player | ] -> [ Action Player | DrawNone ]
+Left  [ DrawNone ] [ Action Player | ] -> [ DrawNone ] [ Action Player | DrawNone ]
+Up    [ DrawNone ] [ Action Player | ] -> [ DrawNone ] [ Action Player | DrawNone ]
+Down  [ DrawNone ] [ Action Player | ] -> [ DrawNone ] [ Action Player | DrawNone ]
 
 
 ( vs Red)
@@ -179,8 +179,6 @@ Down  [ DrawRed ] [ PlayerRed | ] -> [ DrawRed ] [ PlayerRed | DrawRed ]
 [ Move WeakEnemyRed ] -> [ No WeakEnemyRed ]
 
 
-[ WeakEnemyRed DrawRed ] [ Player ] -> [ No WeakEnemyRed ] [ PlayerRed ]
-[ EnemyRed DrawRed ] -> [ WeakEnemyRed ]
 
 
 ( vs Blue )
@@ -193,8 +191,7 @@ Down  [ DrawBlue ] [ PlayerBlue | ] -> [ DrawBlue ] [ PlayerBlue | DrawBlue ]
 [ Move WeakEnemyBlue ] -> [ No WeakEnemyBlue ]
 
 
-[ WeakEnemyBlue DrawBlue ] [ Player ] -> [ No WeakEnemyBlue ] [ PlayerBlue ]
-[ EnemyBlue DrawBlue ] -> [ WeakEnemyBlue ]
+
 
 
 ( vs Yellow )
@@ -206,9 +203,6 @@ Down  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawY
 [ Move EnemyYellow ] -> [ WeakEnemyYellow ]
 [ Move WeakEnemyYellow ] -> [ No WeakEnemyYellow ]
 
-
-[ WeakEnemyYellow DrawYellow ] [ Player ] -> [ No WeakEnemyYellow ] [ PlayerYellow ]
-[ EnemyYellow DrawYellow ] -> [ WeakEnemyYellow ]
 
 
 ( color combinations )
@@ -224,6 +218,16 @@ Down  [ DrawYellow ] [ PlayerYellow | ] -> [ DrawYellow ] [ PlayerYellow | DrawY
 [ WeakEnemyRed DrawNone ]    [ Player ] -> [  ] [ PlayerRed ]
 [ WeakEnemyBlue DrawNone ]   [ Player ] -> [  ] [ PlayerBlue ]
 [ WeakEnemyYellow DrawNone ] [ Player ] -> [  ] [ PlayerYellow ]
+
+
+[ WeakEnemyRed DrawRed ] [ Player ] -> [ No WeakEnemyRed ] [ PlayerRed ]
+[ EnemyRed DrawRed ] -> [ WeakEnemyRed ]
+
+[ WeakEnemyBlue DrawBlue ] [ Player ] -> [ No WeakEnemyBlue ] [ PlayerBlue ]
+[ EnemyBlue DrawBlue ] -> [ WeakEnemyBlue ]
+
+[ WeakEnemyYellow DrawYellow ] [ Player ] -> [ No WeakEnemyYellow ] [ PlayerYellow ]
+[ EnemyYellow DrawYellow ] -> [ WeakEnemyYellow ]
 
 
 late [ Upkeep ] -> [ No Upkeep ]
